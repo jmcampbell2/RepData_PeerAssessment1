@@ -5,9 +5,21 @@ output:
     keep_md: true
 ---
 
+Author: Jennifer Campbell  
+Class: Reproducible Research, week 2, project 1 
+Date: May 20, 2017
+Aim: Write a report that answers the questions detailed below. Ultimately, complete the entire assignment in a single R markdown document that can be processed by knitr and be transformed into an HTML file.
+This analysis has been conducted on a Windows machine running 
 
 ## Loading and preprocessing the data
+In the first step of the analysis, check whether the input data file activitydata.csv is in the working directory, and then download and unzip the file if necessary:
 
+``` {r, echo=TRUE}
+if(!file.exists("activity.csv")){
+    url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+    download.file(url, destfile='activity.zip', method="wininet", mode="wb")
+    unzip(zipfile = "activity.zip")
+}
 
 
 ## What is mean total number of steps taken per day?
