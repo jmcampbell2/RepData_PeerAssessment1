@@ -20,7 +20,7 @@ if(!file.exists("activity.csv")){
     download.file(url, destfile='activity.zip', method="wininet", mode="wb")
     unzip(zipfile = "activity.zip")
 }
-
+```
 
 ## What is mean total number of steps taken per day?
 
