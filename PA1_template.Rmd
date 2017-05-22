@@ -9,7 +9,7 @@ Author: Jennifer Campbell
 Class: Reproducible Research, week 2, project 1  
 Date: May 20, 2017  
 Aim: Write a report that answers the questions detailed below. Ultimately, complete the entire assignment in a single R markdown document that can be processed by knitr and be transformed into an HTML file.  
-This analysis has been conducted on a Windows machine running on Windows 10
+This analysis has been conducted on a Windows machine running on Windows 10.  
 
 ## Loading and preprocessing the data
 In the first step of the analysis, check whether the input data file activitydata.csv is in the working directory, 
@@ -34,24 +34,7 @@ The variables included in this dataset are:
 
 ### Codebook  
 | Field | Description|
-|-------|------------|
-|Steps | Number of steps taking in a 5-minute interval (missing values are coded as NA) |
-|Date | The date on which the measurement was taken in YYYY-MM-DD format |
-|Interval | Identifier for the 5-minute interval in which measurement was taken |
+|:------|:-----------|
+|Steps | Number of steps taken in a 5-minute interval (i.e. 288 observations per day) <br> Numeric variable <br> Range: 0 to 806; 2,304 missing ("NA") values|
 
 
-
-
-## What is mean total number of steps taken per day?
-
-
-
-## What is the average daily activity pattern?
-
-
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
