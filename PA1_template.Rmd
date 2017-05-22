@@ -61,7 +61,8 @@ dailymean <- mean(dailydata$steps)
 dailymedian <- median(dailydata$steps)
 ```
  
- This provides us with the mean of 'r dailymean' and median of 'r dailymedian'
+This provides us with the mean number of steps per day of `r dailymean` and median number of steps per day of `r dailymedian`.  
+ 
 ## What is the average daily activity pattern?
  
  
