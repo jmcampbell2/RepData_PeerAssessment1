@@ -35,12 +35,9 @@ The variables included in this dataset are:
 ### Codebook  
 | Field | Description|
 |:------|:-----------|
-|Steps | Number of steps taken in a 5-minute interval (i.e. 288 observations per day) <br> Numeric variable <br> 
-Range: 0 to 806; 2,304 missing ("NA") values|
-|Date | The date on which the measurement was taken in YYYY-MM-DD format <br> Character variable <br> 
-Range: 2012-10-01 to 2012-11-30 (61 days); No missing values|
-|Interval | Identifier for the 5-minute interval in which measurement was taken <br> Numeric variable <br> 
-Range: 0 to 2,355; No missing values|
+|Steps | Number of steps taken in a 5-minute interval (i.e. 288 observations per day) <br> Numeric variable <br> Range: 0 to 806; 2,304 missing ("NA") values|
+|Date | The date on which the measurement was taken in YYYY-MM-DD format <br> Character variable <br> Range: 2012-10-01 to 2012-11-30 (61 days); No missing values|
+|Interval | Identifier for the 5-minute interval in which measurement was taken <br> Numeric variable <br> Range: 0 to 2,355; No missing values|
 
 We can use the function `aggregate()` to collapse data in order to analyze the observations on a 'per day' basis, and simultaneously exclude missing values (this is the function default, but it is explicitly coded here).
 
