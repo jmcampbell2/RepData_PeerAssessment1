@@ -42,12 +42,17 @@ The variables included in this dataset are:
 We can use the function `aggregate()` to collapse data in order to analyze the observations on a 'per day' basis, and simultaneously exclude missing values (this is the function default, but it is explicitly coded here).
 
 ```{r echo=TRUE}
-dailysteps <- aggregate(steps ~ date, data=activityData, FUN=sum, na.action = na.omit)
+dailydata <- aggregate(steps ~ date, data=df, FUN=sum, na.action = na.omit)
 ```
 
 ## What is mean total number of steps taken per day?
   
-  
+The distribution of the daily steps data can be represented with a histogram, which can be generated as follows:
+
+```{r echo=TRUE}
+hist(dailydata$steps, main="Histogram of Daily Steps", xlab="Total Daily Steps")
+     breaks = 8
+```
  
 ## What is the average daily activity pattern?
  
