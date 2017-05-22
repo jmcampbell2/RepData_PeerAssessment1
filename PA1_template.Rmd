@@ -6,13 +6,14 @@ output:
 ---
 
 Author: Jennifer Campbell  
-Class: Reproducible Research, week 2, project 1 
-Date: May 20, 2017
-Aim: Write a report that answers the questions detailed below. Ultimately, complete the entire assignment in a single R markdown document that can be processed by knitr and be transformed into an HTML file.
-This analysis has been conducted on a Windows machine running 
+Class: Reproducible Research, week 2, project 1  
+Date: May 20, 2017  
+Aim: Write a report that answers the questions detailed below. Ultimately, complete the entire assignment in a single R markdown document that can be processed by knitr and be transformed into an HTML file.  
+This analysis has been conducted on a Windows machine running on Windows 10
 
 ## Loading and preprocessing the data
-In the first step of the analysis, check whether the input data file activitydata.csv is in the working directory, and then download and unzip the file if necessary:
+In the first step of the analysis, check whether the input data file activitydata.csv is in the working directory, 
+and then download and unzip the file if necessary:
 
 ``` {r, echo=TRUE}
 if(!file.exists("activity.csv")){
@@ -21,6 +22,25 @@ if(!file.exists("activity.csv")){
     unzip(zipfile = "activity.zip")
 }
 ```
+
+Then we can read in the data:  
+```{r echo=TRUE}
+df <- read.csv("activity.csv", 
+                na.strings = "NA" header = TRUE, colClasses = c("Numeric","Character","Numeric"))
+```                
+
+There are a total of 17,568 observations in this dataset. 
+The variables included in this dataset are:
+
+### Codebook  
+| Field | Description|
+|-------|------------|
+|Steps | Number of steps taking in a 5-minute interval (missing values are coded as NA) |
+|Date | The date on which the measurement was taken in YYYY-MM-DD format |
+|Interval | Identifier for the 5-minute interval in which measurement was taken |
+
+
+
 
 ## What is mean total number of steps taken per day?
 
