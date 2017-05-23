@@ -69,7 +69,8 @@ The daily activity pattern shows the number of steps taken in each five-minute i
 
 ```{r echo=TRUE}
 intervalavg <- aggregate(steps ~ interval, data=df, FUN=mean)
-plot(intervalavg$interval, intervalavg$steps, type="l",
+names(intervalavg)[2] <- "meansteps"  # rename column
+plot(intervalavg$interval, intervalavg$meansteps, type="l",
      main = "Average Steps per 5-Minute Interval", xlab = "Interval", ylab = "Mean Steps")
 maxint <- intervalavg[intervalavg$steps == max(intervalavg$steps),] 
 ```
@@ -94,7 +95,13 @@ table(df[is.na(df$steps),"date"])
 
 It is clear here that all of the missing values are from only 8 days, and that every value from each of those days is missing. This knowledge, taken together with the intervalavg dataframe, leads to the conclusion that data does exist for each 5-minute interval. We have also seen that the average number of steps varies widely throughout the day, so it may be more appropriate to focus on the average per interval. We can therefore devise a strategy for filling in all of the missing values in the dataset using the mean for that 5-minute interval.
 
-To create a new dataset that is equal to the original dataset but with the missing data filled in, we can merge the original dataframe df with the intervalavg dataframe, conditionally assigning the average interval data to those observations with "NA" in the `steps` column.
+To create a new dataset that is equal to the original dataset but with the missing data filled in, we can merge the original dataframe `df` with the `intervalavg` dataframe, conditionally assigning the average interval data `meansteps` to those observations with "NA" in the `steps` column.
+
+```{r echo=TRUE}
+imptsteps <- merge(df, intervalavg, by = "interval", sort= FALSE) # merge
+imptsteps$steps[is.na(imptsteps$steps)] <- imptsteps$meansteps[is.na(imptsteps$steps)] # replace
+imptsteps <- imptsteps[with(imptsteps, order(date,interval)), ] # sort by date then interval
+```
 
 Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps? 
  
