@@ -56,12 +56,12 @@ hist(dailydata$steps, main="Histogram of Daily Steps", xlab="Total Daily Steps",
 We can also summarize the data with the following measures:
 
 ```{r echo=TRUE}
-summary(dailydata$steps)
+summary(dailydata$steps, digits=7)
 dailymean <- mean(dailydata$steps)
 dailymedian <- median(dailydata$steps)
 ```
  
-This provides us with the mean number of steps per day of `r dailymean` and median number of steps per day of `r dailymedian`.  
+This provides us with the mean number of steps per day of 10,766.19 and median number of steps per day of 10,765.  
  
 ## What is the average daily activity pattern?
  
