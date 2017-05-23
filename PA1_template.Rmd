@@ -65,19 +65,36 @@ This provides us with the mean number of steps per day of 10,766.19 and median n
  
 ## What is the average daily activity pattern?
  
-Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+The daily activity pattern shows the number of steps taken in each five-minute interval.  First, we need to aggregate the average number of steps taken during each interval across all days, then make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).  
 
-Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps? 
+```{r echo=TRUE}
+intervalavg <- aggregate(steps ~ interval, data=df, FUN=mean)
+plot(intervalavg$interval, intervalavg$steps, type="l",
+     main = "Average Steps per 5-Minute Interval", xlab = "Interval", ylab = "Mean Steps")
+maxint <- intervalavg[intervalavg$steps == max(intervalavg$steps),] 
+```
+
+The 5-minute interval which contains the maximum number of steps on average across all the days in the dataset is `r maxint`, or the interval from 8:35AM to 8:40AM, with over 206 steps on average. 
  
 ## Imputing missing values  
 
 There are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
 
-Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+We calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs) with `is.na()`, finding 2,304.
 
-Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+```{r echo=TRUE}
+sum(is.na(df$steps))
+```
 
-Create a new dataset that is equal to the original dataset but with the missing data filled in.
+We can see which days have missing values:
+
+```{r echo=TRUE}
+table(df[is.na(df$steps),"date"])
+```
+
+It is clear here that all of the missing values are from only 8 days, and that every value from each of those days is missing. This knowledge, taken together with the intervalavg dataframe, leads to the conclusion that data does exist for each 5-minute interval. We have also seen that the average number of steps varies widely throughout the day, so it may be more appropriate to focus on the average per interval. We can therefore devise a strategy for filling in all of the missing values in the dataset using the mean for that 5-minute interval.
+
+To create a new dataset that is equal to the original dataset but with the missing data filled in, we can merge the original dataframe df with the intervalavg dataframe, conditionally assigning the average interval data to those observations with "NA" in the `steps` column.
 
 Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps? 
  
