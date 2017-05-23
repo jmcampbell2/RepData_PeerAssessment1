@@ -12,8 +12,7 @@ Aim: Write a report that answers the questions detailed below. Ultimately, compl
 This analysis has been conducted on a Windows machine running on Windows 10.  
 
 ## Loading and preprocessing the data
-In the first step of the analysis, check whether the input data file activitydata.csv is in the working directory, 
-and then download and unzip the file if necessary:
+In the first step of the analysis, check whether the input data file activity.csv is in the working directory, and then download and unzip the file if necessary:
 
 ``` {r, echo=TRUE}
 if(!file.exists("activity.csv")){
@@ -118,10 +117,16 @@ The new median value of 10,766.19 *does* differ from the estimate in the first p
  
 ## Are there differences in activity patterns between weekdays and weekends?  
 
-For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
+In order to answer this question, we can calculate the day of the week for each observation date, using the `weekdays()` function, and add the type of day to the dataset as a factor variable. Then, re-aggregate the interval data across the two new categories, weekday and weekend.
 
-Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+```{r echo=TRUE}
+wday <- weekdays(as.Date(imptsteps$date, format="%Y-%m-%d"))
+imptsteps$daytype <- as.factor(ifelse(wday %in% c("Saturday","Sunday"),"Weekend","Weekday"))
+wdayavg <- aggregate(steps ~ daytype + interval, data=imptsteps, FUN=mean)
+```
 
-Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+The following panel plot contains a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
+```{r echo=TRUE}
+```
 
