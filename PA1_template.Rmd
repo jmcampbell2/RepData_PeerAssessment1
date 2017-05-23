@@ -103,7 +103,17 @@ imptsteps$steps[is.na(imptsteps$steps)] <- imptsteps$meansteps[is.na(imptsteps$s
 imptsteps <- imptsteps[with(imptsteps, order(date,interval)), ] # sort by date then interval
 ```
 
-Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps? 
+Now we can re-aggregate the data and make a histogram of the total number of steps taken each day and the mean and median total number of steps taken per day:  
+
+```{r echo=TRUE}
+newdailydata <- aggregate(steps ~ date, data=imptsteps, FUN=sum)
+hist(newdailydata$steps, main="Histogram of Daily Steps", xlab="Total Daily Steps", breaks=10)
+mean(newdailydata$steps)
+median(newdailydata$steps)
+```
+
+The new mean is found to be 10,766.19, the same as our initial analysis, so no impact is seen from the imputed data.  
+The new median value of 10,766.19 *does* differ from the estimate in the first part of the assignment.  Imputing the mean-steps for the missing values has moved the median estimate closer to the mean estimate of the total daily number of steps. 
  
  
 ## Are there differences in activity patterns between weekdays and weekends?  
