@@ -148,6 +148,6 @@ summary(wdayavg[wdayavg$daytype=="Weekend","steps"])
 ```
 
 The weekday data appears closer to the original estimates, which makes sense, as it makes up a greater portion of the total dataset.
-(Also of note: there are fewer weekend observations than weekday observations in the data set, and therefore fewer values to average across.)
+(Also of note: there are fewer weekend observations in the data set, and therefore fewer values to average across.)
 
 *End of analysis*
