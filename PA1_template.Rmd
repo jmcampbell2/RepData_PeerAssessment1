@@ -44,6 +44,7 @@ We can use the function `aggregate()` to collapse data in order to analyze the o
 dailydata <- aggregate(steps ~ date, data=df, FUN=sum, na.action = na.omit)
 ```
 
+
 ## What is mean total number of steps taken per day?
   
 The distribution of the daily steps data can be represented with a histogram, which can be generated as follows:
@@ -61,7 +62,8 @@ dailymedian <- median(dailydata$steps)
 ```
  
 This provides us with the mean number of steps per day of 10,766.19 and median number of steps per day of 10,765.  
- 
+
+
 ## What is the average daily activity pattern?
  
 The daily activity pattern shows the number of steps taken in each five-minute interval.  First, we need to aggregate the average number of steps taken during each interval across all days, then make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).  
@@ -71,11 +73,14 @@ intervalavg <- aggregate(steps ~ interval, data=df, FUN=mean)
 names(intervalavg)[2] <- "meansteps"  # rename column
 plot(intervalavg$interval, intervalavg$meansteps, type="l",
      main = "Average Steps per 5-Minute Interval", xlab = "Interval", ylab = "Mean Steps")
+
+summary(intervalavg$meansteps)
 maxint <- intervalavg[intervalavg$meansteps == max(intervalavg$meansteps),] 
 ```
 
-The 5-minute interval which contains the maximum number of steps on average across all the days in the dataset is `r maxint`, or the interval from 8:35AM to 8:40AM, with over 206 steps on average. 
- 
+The 5-minute interval which contains the maximum number of steps on average across all the days in the dataset is `r maxint$interval`, or the interval from 8:35AM to 8:40AM, with over 206 steps on average. 
+
+
 ## Imputing missing values  
 
 There are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
@@ -128,5 +133,20 @@ wdayavg <- aggregate(steps ~ daytype + interval, data=imptsteps, FUN=mean)
 The following panel plot contains a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 ```{r echo=TRUE}
+library(lattice)
+xyplot(steps ~ interval | daytype, wdayavg, lty=1, type="l", layout=c(1,2),
+     main = "Average Steps per 5-Minute Interval: Weekdays vs. Weekends", xlab = "Interval", ylab = "Mean Steps")
 ```
 
+The plot shows that the pattern of activity follows the same trend across weekdays and weekends, with a peak in the morning (as we saw previously around 8:35AM), but that weekends tend to have higher average step counts throughout the day than on weekdays. 
+The output of `summary()` for each day type also confirms this trend of higher weekend averages compared to weekdays, though the weekdays have a higher maximum.  
+
+```{r echo=TRUE}
+summary(wdayavg[wdayavg$daytype=="Weekday","steps"])
+summary(wdayavg[wdayavg$daytype=="Weekend","steps"])
+```
+
+The weekday data appears closer to the original estimates, which makes sense, as it makes up a greater portion of the total dataset.
+(Also of note: there are fewer weekend observations than weekday observations in the data set, and therefore fewer values to average across.)
+
+*End of analysis*
