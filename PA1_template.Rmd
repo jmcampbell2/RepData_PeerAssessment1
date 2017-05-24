@@ -57,8 +57,8 @@ We can also summarize the data with the following measures:
 
 ```{r echo=TRUE}
 summary(dailydata$steps, digits=7)
-dailymean <- mean(dailydata$steps)
-dailymedian <- median(dailydata$steps)
+mean(dailydata$steps)
+median(dailydata$steps)
 ```
  
 This provides us with the mean number of steps per day of 10,766.19 and median number of steps per day of 10,765.  
@@ -135,7 +135,8 @@ The following panel plot contains a time series plot (i.e. type = "l") of the 5-
 ```{r echo=TRUE}
 library(lattice)
 xyplot(steps ~ interval | daytype, wdayavg, lty=1, type="l", layout=c(1,2),
-     main = "Average Steps per 5-Minute Interval: Weekdays vs. Weekends", xlab = "Interval", ylab = "Mean Steps")
+     main = "Average Steps per 5-Minute Interval: Weekdays vs. Weekends", 
+     xlab = "Interval", ylab = "Mean Steps")
 ```
 
 The plot shows that the pattern of activity follows the same trend across weekdays and weekends, with a peak in the morning (as we saw previously around 8:35AM), but that weekends tend to have higher average step counts throughout the day than on weekdays. 
